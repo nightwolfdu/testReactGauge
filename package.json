@@ -13,7 +13,7 @@
   "pre-commit": [
     "test",
     "eslint"
-  ]
+  ],
   "keywords": [],
   "author": "ReactDxTeam",
   "license": "MIT",
