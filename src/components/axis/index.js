@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { getDAttribute } from './helper';
+import _ from 'lodash';
 
 import Label from '../label';
 
@@ -23,7 +24,7 @@ const Axis = (props) => {
     );
     const RangeContainer = () =>
         <rect
-            x={scale(props.startTick)}
+            x={scale(_.min(props.customTicks))}
             y={props.y}
             height={5}
             width={scale(customTicks[customTicks.length - 1]) - scale(customTicks[0])}
@@ -31,7 +32,7 @@ const Axis = (props) => {
         />;
 
     return (
-        <g>
+        <g className="axis">
             <RangeContainer />
             {axisTicks}
             {labels}

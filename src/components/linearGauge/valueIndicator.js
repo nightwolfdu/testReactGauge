@@ -1,23 +1,20 @@
 import React from 'react';
 
 const ValueIndicator = (props) => {
-    const scaledWidth = props.linearScale(props.value) - props.x;
-    let width;
-    let height;
-    if (props.vertical) {
-        width = props.height;
-        height = scaledWidth;
-    } else {
-        height = props.height;
-        width = scaledWidth;
-    }
+    const defaultProps = ValueIndicator.defaultProps;
+    const width = props.linearScale(props.value) - props.x;
+    const height = props.height;
+
     return (
         <rect
             x={props.x}
             y={props.y}
             width={width}
             height={height}
-            style={props.style}
+            fill={props.style.color || defaultProps.style.color}
+            stroke={props.style.stroke || defaultProps.style.stroke}
+            strokeWidth={props.style.strokeWidth || defaultProps.style.strokeWidth}
+            className="valueIndicator"
         />);
 };
 
@@ -26,18 +23,20 @@ ValueIndicator.propTypes = {
     x: React.PropTypes.number,
     y: React.PropTypes.number,
     height: React.PropTypes.number,
-    vertical: React.PropTypes.bool,
     style: React.PropTypes.object,
     linearScale: React.PropTypes.func.isRequired
 };
 
 ValueIndicator.defaultProps = {
-    value: 1.2,
+    value: 0,
     x: 0,
     y: 0,
     height: 10,
-    vertical: false,
-    style: { fill: 'blue', stroke: 'blue', strokeWidth: '1' }
+    style: {
+        color: '#C2C2C2',
+        stroke: '#C2C2C2',
+        strokeWidth: 0
+    }
 };
 
 export default ValueIndicator;
