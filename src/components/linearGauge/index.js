@@ -7,6 +7,7 @@ import Axis from '../axis';
 
 const Gauge = (props) => {
     const domainPadding = props.size.width / 10;
+    const startValue = props.scale.startValue || _.min(props.scale.customTicks);
     let linearScale = scaleLinear().range([domainPadding, props.size.width - domainPadding]);
     let ticks;
     if (props.scale.customTicks && props.scale.customTicks.length > 0) {
@@ -22,10 +23,10 @@ const Gauge = (props) => {
     return (
         <svg width={props.size.width} height={props.size.height}>
             <ValueIndicator
-                x={linearScale(props.scale.startValue)}
+                x={linearScale(startValue)}
                 y={props.rangeContainer.valueIndicatorOffset}
                 value={props.value}
-                style={{ fill: props.valueIndicator.color }}
+                style={props.valueIndicator}
                 linearScale={linearScale}
             />
             <Axis
@@ -34,7 +35,6 @@ const Gauge = (props) => {
                 tickColor={props.tickColor}
                 tickWidth={props.tickWidth}
                 customTicks={ticks}
-                startTick={props.scale.startValue}
                 labelOffset={props.rangeContainer.labelOffset}
                 linearScale={linearScale}
                 backgroundColor={props.backgroundColor}
@@ -77,10 +77,11 @@ Gauge.defaultProps = {
         height: 500
     },
     value: 50,
-    rangeContainer: { valueIndicatorOffset: 5, axisOffset: 0, labelOffset: 30 },
-    valueIndicator: ({
-        color: 'blue'
-    })
+    rangeContainer: {
+        valueIndicatorOffset: 5,
+        axisOffset: 0,
+        labelOffset: 30
+    }
 };
 
 export default Gauge;
